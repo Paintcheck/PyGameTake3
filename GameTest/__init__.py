@@ -1,6 +1,23 @@
 import pygame
 pygame.init()
-#Dennis Branch
+
+class diver():
+    diverx = 0 #Starting position
+    divery = 0
+    moveX = 10
+    moveY = 10 #Movement speed in the x and y direction for the diver. 
+
+def createDiver(x, y):
+    pygame.draw.rect(background, pygame.color.Color("red"),(x,y,15,10), 2)
+    pygame.display.update()
+    diverx = x
+    divery = y
+    
+def move():
+    
+
+
+
 screen = pygame.display.set_mode((1024, 768))
 pygame.display.set_caption("Hello, world!")
 background = pygame.Surface(screen.get_size())
@@ -15,11 +32,12 @@ textpos.centerx = background.get_rect().centerx
 textpos.centery = background.get_rect().centery
 background.blit(text, textpos)
 keepGoing = True
+#pygame.display.update()
+
 while keepGoing:
     clock.tick(60)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            keepGoing = False
-                
+            keepGoing = False      
     screen.blit(background, (0,0))
-    pygame.display.flip()
+    pygame.display.update()
