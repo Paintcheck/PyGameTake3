@@ -1,23 +1,37 @@
-import pygame
+import pygame, sys
 pygame.init()
-
-class diver():
-    diverx = 0 #Starting position
-    divery = 0
+    
+class Diver:
+    diverX = 0 #Starting position
+    diverY = 0
     moveX = 10
     moveY = 10 #Movement speed in the x and y direction for the diver. 
-
-def createDiver(x, y):
-    pygame.draw.rect(background, pygame.color.Color("red"),(x,y,15,10), 2)
-    pygame.display.update()
-    diverx = x
-    divery = y
+    image = None #Placeholder. Actual sprite will go here
     
-def move():
+def __init__(self, x, y): #Constructor would also take in the image here but since we have no image yet I'm just using a rectangle
+    self.image = pygame.draw.rect(pygame.display.get_surface(), pygame.color.Color("red"),(x, y, 15, 10), 2)
+    self.diverX = x
+    self.diverY = y
     
+def update(self):
+    self.move()
+    #Moves right or left according to key input
+def move(self):
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RIGHT:
+                self.diverX+= self.moveX
+            elif event.type == pygame.K_LEFT:
+                self.diverX-= self.moveX
+            elif event.type == pygame.K_UP:
+                self.diverY-=self.moveY
+            elif event.type == pygame.K_DOWN:
+                self.diverY+=self.moveY
 
+def draw(self):
+    pygame.display.get_surface().blit(self.image, (self.diverX, self.diverY))    
 
-
+#def main():           
 screen = pygame.display.set_mode((1024, 768))
 pygame.display.set_caption("Hello, world!")
 background = pygame.Surface(screen.get_size())
@@ -31,13 +45,15 @@ textpos = text.get_rect()
 textpos.centerx = background.get_rect().centerx
 textpos.centery = background.get_rect().centery
 background.blit(text, textpos)
-keepGoing = True
-#pygame.display.update()
+scubadiver = Diver(10, 10)
 
-while keepGoing:
+while 1:
     clock.tick(60)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            keepGoing = False      
+            sys.exit()
+
     screen.blit(background, (0,0))
+    scubadiver.update()
+    scubadiver.draw()
     pygame.display.update()
