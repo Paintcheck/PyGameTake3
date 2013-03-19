@@ -1,136 +1,112 @@
-# Sample Python/Pygame Programs
-# Simpson College Computer Science
-# http://simpson.edu/computer-science
- 
 import pygame
-import random
- 
-# Define some colors
-black    = (   0,   0,   0)
-white    = ( 255, 255, 255)
-red      = ( 255,   0,   0)
 
+Ldiverdude = pygame.image.load("Lscubadiversmall.gif")
+Rdiverdude = pygame.image.load("Rscubadiversmall.gif")
 
-# This class represents the ball        
-# It derives from the "Sprite" class in Pygame
-class Block(pygame.sprite.Sprite):  
-
-# Constructor. Pass in the color of the block, 
-# and its x and y position
-    def __init__(self, color, width, height):
-    # Call the parent class (Sprite) constructor
-        pygame.sprite.Sprite.__init__(self) 
-
-
-
-# Create an image of the block, and fill it with a color.
-# This could also be an image loaded from the disk.
-self.image = pygame.Surface([width, height])
-self.image.fill(color)
-
-
-
-self.image = pygame.Surface([width, height])
-self.image.fill(white)
-self.image.set_colorkey(white)
-pygame.draw.ellipse(self.image,color,[0,0,width,height])
-
-
-self.image = pygame.image.load("player.png").convert()
-self.image.set_colorkey(white)
-
-
-# Fetch the rectangle object that has the dimensions of the 
-# image
-# Update the position of this object by setting the values 
-# of rect.x and rect.y
-self.rect = self.image.get_rect()
-
-
-# Initialize Pygame
+ocean = [135, 206, 250] 
+black = [0, 0, 0]
+# Function to draw our stick figure
+def LdrawDiver(screen,x,y):
+    Ldiverdude = pygame.image.load("Lscubadiversmall.gif")
+    screen.blit(Ldiverdude, (x, y))
+def RdrawDiver(screen,x,y):
+    Ldiverdude = pygame.image.load("Rscubadiversmall.gif")
+    screen.blit(Rdiverdude, (x, y))     
+# Setup
 pygame.init()
- 
-# Set the height and width of the screen
-screen_width=700
-screen_height=400
-screen=pygame.display.set_mode([screen_width,screen_height])
-
-
-# This is a list of 'sprites.' Each block in the program is
-# added to this list.
-# The list is managed by a class called 'Group.'
-block_list = pygame.sprite.Group()
- 
-# This is a list of every sprite. 
-# All blocks and the player block as well.
-all_sprites_list = pygame.sprite.Group()
-
-
-
-
-for i in range(50):
-    # This represents a block
-    block = Block(black, 20, 15)
- 
-    # Set a random location for the block
-    block.rect.x = random.randrange(screen_width)
-    block.rect.y = random.randrange(screen_height)
-     
-    # Add the block to the list of objects
-    block_list.add(block)
-    all_sprites_list.add(block)
-
-# Create a red player block
-player = Block(red, 20, 15)
-all_sprites_list.add(player)
-
+   
+# Set the width and height of the screen [width,height]
+size=[1024,768]
+screen=pygame.display.set_mode(size)
+  
+pygame.display.set_caption("Diver Test")
+  
 #Loop until the user clicks the close button.
 done=False
- 
+  
 # Used to manage how fast the screen updates
 clock=pygame.time.Clock()
  
-score = 0
+# Hide the mouse cursor
+pygame.mouse.set_visible(0)
  
+# Speed in pixels per frame
+x_speed=0
+y_speed=0
+  
+# Current position
+x_coord=10
+y_coord=10
+
+#Direction to face
+direction=1
 # -------- Main Program Loop -----------
 while done==False:
+    # ALL EVENT PROCESSING SHOULD GO BELOW THIS COMMENT
     for event in pygame.event.get(): # User did something
         if event.type == pygame.QUIT: # If user clicked close
             done=True # Flag that we are done so we exit this loop
+            # User pressed down on a key
+         
+        if event.type == pygame.KEYDOWN:
+            # Figure out if it was an arrow key. If so
+            # adjust speed.
+            if event.key == pygame.K_LEFT:
+                x_speed=-3
+                direction=0
+            if event.key == pygame.K_RIGHT:
+                x_speed=3
+                direction=1
+            if event.key == pygame.K_UP:
+                y_speed=-3
+            if event.key == pygame.K_DOWN:
+                y_speed=3
+                  
+        # User let up on a key
+        if event.type == pygame.KEYUP:
+            # If it is an arrow key, reset vector back to zero
+            if event.key == pygame.K_LEFT:
+                x_speed=0
+            if event.key == pygame.K_RIGHT:
+                x_speed=0
+            if event.key == pygame.K_UP:
+                y_speed=0
+            if event.key == pygame.K_DOWN:
+                y_speed=0
+    # ALL EVENT PROCESSING SHOULD GO ABOVE THIS COMMENT
  
-    # Clear the screen
-    screen.fill(white)
-
-
-# Get the current mouse position. This returns the position
-# as a list of two numbers.
-pos = pygame.mouse.get_pos()
+    # ALL GAME LOGIC SHOULD GO BELOW THIS COMMENT
  
-# Fetch the x and y out of the list, 
-# just like we'd fetch letters out of a string.
-# Set the player object to the mouse location
-player.rect.x=pos[0]
-player.rect.y=pos[1]
-
-
-# See if the player block has collided with anything.
-blocks_hit_list = pygame.sprite.spritecollide(player, block_list, True)  
-
-
-# Check the list of collisions.
-for block in blocks_hit_list:
-    score +=1
-    print( score )
-
-
-# Draw all the spites
-all_sprites_list.draw(screen)
-
-
-# Limit to 20 frames per second
-clock.tick(20)
+    # Move the object according to the speed vector.
+    x_coord=x_coord+x_speed
+    y_coord=y_coord+y_speed
  
+    # ALL GAME LOGIC SHOULD GO ABOVE THIS COMMENT    
+ 
+    # ALL CODE TO DRAW SHOULD GO BELOW THIS COMMENT
+      
+    # First, clear the screen to white. Don't put other drawing commands
+    # above this, or they will be erased with this command.
+    screen.fill(ocean)
+    
+    if direction == 1:
+        RdrawDiver(screen,x_coord,y_coord)
+    else:
+        LdrawDiver(screen,x_coord,y_coord)
+
+     
+ 
+    # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
+      
     # Go ahead and update the screen with what we've drawn.
-pygame.display.flip()
- 
-pygame.quit()
+    pygame.display.flip()
+  
+    # Limit to 30 frames per second
+    clock.tick(30)
+      
+# Close the window and quit.
+# If you forget this line, the program will 'hang'
+# on exit if running from IDLE (indeed it will I found this out the hard way)
+pygame.quit ()
+
+
