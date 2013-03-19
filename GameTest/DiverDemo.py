@@ -1,5 +1,5 @@
 import pygame
-
+#testing
 Ldiverdude = pygame.image.load("Lscubadiversmall.png")
 Rdiverdude = pygame.image.load("Rscubadiversmall.png")
 
