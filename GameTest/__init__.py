@@ -40,6 +40,7 @@ y_coord=10
 
 #Direction to face
 direction=1
+speed=10
 # -------- Main Program Loop -----------
 while done==False:
     # ALL EVENT PROCESSING SHOULD GO BELOW THIS COMMENT
@@ -52,15 +53,15 @@ while done==False:
             # Figure out if it was an arrow key. If so
             # adjust speed.
             if event.key == pygame.K_LEFT:
-                x_speed=-3
+                x_speed=-speed
                 direction=0
             if event.key == pygame.K_RIGHT:
-                x_speed=3
+                x_speed=speed
                 direction=1
             if event.key == pygame.K_UP:
-                y_speed=-3
+                y_speed=-speed
             if event.key == pygame.K_DOWN:
-                y_speed=3
+                y_speed=speed
                   
         # User let up on a key
         if event.type == pygame.KEYUP:
@@ -80,6 +81,17 @@ while done==False:
     # Move the object according to the speed vector.
     x_coord=x_coord+x_speed
     y_coord=y_coord+y_speed
+    
+    if x_coord < 0:
+        x_coord = 0
+    if y_coord < 0:
+        y_coord = 0
+    if x_coord > 1024-224:
+        x_coord = 1024-224
+    if y_coord > 768-181:
+        y_coord = 768-181
+            
+    
  
     # ALL GAME LOGIC SHOULD GO ABOVE THIS COMMENT    
  
