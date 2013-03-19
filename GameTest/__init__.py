@@ -1,16 +1,16 @@
 import pygame
 
-Ldiverdude = pygame.image.load("Lscubadiversmall.gif")
-Rdiverdude = pygame.image.load("Rscubadiversmall.gif")
+Ldiverdude = pygame.image.load("Lscubadiversmall.png")
+Rdiverdude = pygame.image.load("Rscubadiversmall.png")
 
 ocean = [135, 206, 250] 
 black = [0, 0, 0]
 # Function to draw our stick figure
 def LdrawDiver(screen,x,y):
-    Ldiverdude = pygame.image.load("Lscubadiversmall.gif")
+    Ldiverdude = pygame.image.load("Lscubadiversmall.png")
     screen.blit(Ldiverdude, (x, y))
 def RdrawDiver(screen,x,y):
-    Ldiverdude = pygame.image.load("Rscubadiversmall.gif")
+    Ldiverdude = pygame.image.load("Rscubadiversmall.png")
     screen.blit(Rdiverdude, (x, y))     
 # Setup
 pygame.init()

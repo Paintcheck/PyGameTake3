@@ -1,17 +1,17 @@
 import pygame
 
-Ldiverdude = pygame.image.load("Lscubadiversmall.gif")
-Rdiverdude = pygame.image.load("Rscubadiversmall.gif")
+Ldiverdude = pygame.image.load("Lscubadiversmall.png")
+Rdiverdude = pygame.image.load("Rscubadiversmall.png")
 AcquariumBackground = pygame.image.load("Aquarium.jpg")
 
 ocean = [135, 206, 250] 
 black = [0, 0, 0]
 # Function to draw our stick figure
 def LdrawDiver(screen,x,y):
-    Ldiverdude = pygame.image.load("Lscubadiversmall.gif")
+    Ldiverdude = pygame.image.load("Lscubadiversmall.png")
     screen.blit(Ldiverdude, (x, y))
 def RdrawDiver(screen,x,y):
-    Ldiverdude = pygame.image.load("Rscubadiversmall.gif")
+    Ldiverdude = pygame.image.load("Rscubadiversmall.png")
     screen.blit(Rdiverdude, (x, y))     
 # Setup
 pygame.init()
@@ -41,6 +41,8 @@ y_coord=10
 
 #Direction to face
 direction=1
+speed=10
+
 # -------- Main Program Loop -----------
 while done==False:
     # ALL EVENT PROCESSING SHOULD GO BELOW THIS COMMENT
@@ -53,15 +55,15 @@ while done==False:
             # Figure out if it was an arrow key. If so
             # adjust speed.
             if event.key == pygame.K_LEFT:
-                x_speed=-3
+                x_speed=-speed
                 direction=0
             if event.key == pygame.K_RIGHT:
-                x_speed=3
+                x_speed=speed
                 direction=1
             if event.key == pygame.K_UP:
-                y_speed=-3
+                y_speed=-speed
             if event.key == pygame.K_DOWN:
-                y_speed=3
+                y_speed=speed
                   
         # User let up on a key
         if event.type == pygame.KEYUP:
@@ -82,6 +84,16 @@ while done==False:
     x_coord=x_coord+x_speed
     y_coord=y_coord+y_speed
  
+    if x_coord < 0:
+        x_coord = 0
+    if y_coord < 0:
+        y_coord = 0
+    if x_coord > 1024-224:
+        x_coord = 1024-224
+    if y_coord > 768-188:
+        y_coord = 768-188
+            
+    
     # ALL GAME LOGIC SHOULD GO ABOVE THIS COMMENT    
  
     # ALL CODE TO DRAW SHOULD GO BELOW THIS COMMENT
