@@ -6,8 +6,11 @@ Rdiverdude = pygame.image.load("Rscubadiversmall.png")
 Ldiverbuddy = pygame.image.load("Lbuddy.png")
 Rdiverbuddy = pygame.image.load("Rbuddy.png")
 
-Leel = pygame.image.load("Leel.png")
 Reel = pygame.image.load("Reel.png")
+
+Lcfishmedium = pygame.image.load("Lcfishmedium.png")
+
+Lcfishsmall = pygame.image.load("Lcfishsmall.png")
 
 AcquariumBackground = pygame.image.load("Aquarium.jpg")
 
@@ -24,11 +27,15 @@ def LdrawBuddy(screen,x,y):
 def RdrawBuddy(screen,x,y):
     screen.blit(Rdiverbuddy, (x, y))  
 
-def Ldraweel(screen,x,y):
-    screen.blit(Leel, (x, y))
 def Rdraweel(screen,x,y):
     screen.blit(Reel, (x, y))
-      
+
+def Ldrawcfishmedium(screen,x,y):
+    screen.blit(Lcfishmedium, (x, y))
+    
+def Ldrawcfishsmall(screen,x,y):
+    screen.blit(Lcfishsmall, (x, y))
+    
 # Setup
 pygame.init()
    
@@ -60,6 +67,12 @@ y_coordbuddy=0
 
 x_coordeel = -250
 y_coordeel = 768 - 100
+
+x_coordcfishmedium = 1024 + 250
+y_coordcfishmedium = 200
+
+x_coordcfishsmall = 1024 + 250 + 100
+y_coordcfishsmall = 200 + 11
 
 #Direction to face
 direction = 1
@@ -161,6 +174,15 @@ while done==False:
         x_coordeel = -500
     Rdraweel(screen, x_coordeel, y_coordeel)
     
+    x_coordcfishmedium = x_coordcfishmedium - 2
+    if x_coordcfishmedium < -100:
+        x_coordcfishmedium = 1024 + 500
+    Ldrawcfishmedium(screen, x_coordcfishmedium, y_coordcfishmedium)
+    
+    x_coordcfishsmall = x_coordcfishsmall - 2
+    if x_coordcfishsmall < -100:
+        x_coordcfishsmall = 1024 + 500 + 100
+    Ldrawcfishsmall(screen, x_coordcfishsmall, y_coordcfishsmall)
  
     # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
       
