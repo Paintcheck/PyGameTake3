@@ -192,15 +192,15 @@ while done==False:
             if event.type == pygame.KEYDOWN:
                 # Figure out if it was an arrow key. If so
                 # adjust speed.
-                if event.key == pygame.K_LEFT:
+                if event.key == pygame.K_a:
                     x_speed=-speed
                     direction=0
-                if event.key == pygame.K_RIGHT:
+                if event.key == pygame.K_d:
                     x_speed=speed
                     direction=1
-                if event.key == pygame.K_UP:
+                if event.key == pygame.K_w:
                     y_speed=-speed
-                if event.key == pygame.K_DOWN:
+                if event.key == pygame.K_s:
                     y_speed=speed
                 if event.key == pygame.K_SPACE:
                     spacehit = True
@@ -210,13 +210,13 @@ while done==False:
             # User let up on a key
             if event.type == pygame.KEYUP:
                 # If it is an arrow key, reset vector back to zero
-                if event.key == pygame.K_LEFT:
+                if event.key == pygame.K_a:
                     x_speed=0
-                if event.key == pygame.K_RIGHT:
+                if event.key == pygame.K_d:
                     x_speed=0
-                if event.key == pygame.K_UP:
+                if event.key == pygame.K_w:
                     y_speed=0
-                if event.key == pygame.K_DOWN:
+                if event.key == pygame.K_s:
                     y_speed=0
                 if event.key == pygame.K_SPACE:
                     spacehit = False
