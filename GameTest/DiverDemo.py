@@ -12,6 +12,8 @@ Lcfishmedium = pygame.image.load("Lcfishmedium.png")
 
 Lcfishsmall = pygame.image.load("Lcfishsmall.png")
 
+treasuresmall = pygame.image.load("treasuresmall.png")
+
 AcquariumBackground = pygame.image.load("Aquarium.jpg")
 
 ocean = [135, 206, 250] 
@@ -35,7 +37,9 @@ def Ldrawcfishmedium(screen,x,y):
     
 def Ldrawcfishsmall(screen,x,y):
     screen.blit(Lcfishsmall, (x, y))
-    
+
+def drawtreasuresmall(screen,x,y):
+    screen.blit(treasuresmall, (x, y)) 
 # Setup
 pygame.init()
    
@@ -66,7 +70,7 @@ x_coordbuddy=0
 y_coordbuddy=0
 
 x_coordeel = -250
-y_coordeel = 768 - 100
+y_coordeel = 768 - 200
 
 x_coordcfishmedium = 1024 + 250
 y_coordcfishmedium = 200
@@ -159,6 +163,9 @@ while done==False:
     screen.fill(ocean)
     screen.blit(AcquariumBackground, (0,0))
     
+    
+    drawtreasuresmall(screen, 1024 - 120, 768 - 100)
+    
     if buddydirection == 1:
             RdrawBuddy(screen, x_coordbuddy, y_coordbuddy)
     else:
@@ -180,7 +187,7 @@ while done==False:
     Ldrawcfishmedium(screen, x_coordcfishmedium, y_coordcfishmedium)
     
     x_coordcfishsmall = x_coordcfishsmall - 2
-    if x_coordcfishsmall < -100:
+    if x_coordcfishsmall < -100 + 100:
         x_coordcfishsmall = 1024 + 500 + 100
     Ldrawcfishsmall(screen, x_coordcfishsmall, y_coordcfishsmall)
  
