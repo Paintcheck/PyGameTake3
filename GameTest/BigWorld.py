@@ -16,9 +16,16 @@ cfish = pygame.image.load("cfish.png") # 476 x 212
 
 treasuresmall = pygame.image.load("treasuresmall.png") # 120 x 100
 
+rocks = pygame.image.load("rocks.gif") # 200 x 768
+
 treasurebig = pygame.image.load("treasurebig.png") # 472 x 395
 
 seafloor = pygame.image.load("seafloor2.jpg") # 6000 x 768
+
+speed = 10
+eelspeed = 5
+cfishspeed = 2
+
 
 ocean = [135, 206, 250] 
 black = [0, 0, 0]
@@ -57,6 +64,9 @@ def drawtreasuresmall(screen,x,y):
 def drawtreasurebig(screen,x,y):
     screen.blit(treasurebig, (x, y))
 
+def drawrocks(screen,x,y):
+    screen.blit(rocks, (x, y))
+    
 def collision(object1, object2):
     x1 = object1[0]
     y1 = object1[1]
@@ -94,7 +104,7 @@ x_speed=0
 y_speed=0
   
 # Current position
-x_coord=0
+x_coord=449
 y_coord=0
 
 x_coordbuddy=0
@@ -113,15 +123,13 @@ x_coordtreasure = 3000
 y_coordtreasure = 768 - 100
 treasure_c = [x_coordtreasure, y_coordtreasure, 120, 100]
 
-x_coordback = 0
+x_coordback = 0 - 500
 y_coordback = 0
 
 #Direction to face
 direction = 1
 buddydirection =1
-speed = 30
-eelspeed = 20
-cfishspeed = 20
+
 
 # -------- Main Program Loop -----------
 while done==False:
@@ -220,7 +228,8 @@ while done==False:
     #screen.blit(SeafloorBackground, (0,0))
     
     drawseafloor(screen, x_coordback, y_coordback)
-    
+    drawrocks(screen, x_coordback - 100, 0)
+    drawrocks(screen, x_coordback + 100 + 6000 - 200, 0)
     drawtreasuresmall(screen, x_coordtreasure, y_coordtreasure)
     
     if buddydirection == 1:
@@ -235,7 +244,7 @@ while done==False:
         
     x_coordeel = x_coordeel + eelspeed
     if x_coordeel > x_coordback + 6000:
-        x_coordeel = x_coordback
+        x_coordeel = x_coordback - 200
     Rdraweel(screen, x_coordeel, y_coordeel)
     
     x_coordcfishmedium = x_coordcfishmedium - cfishspeed
@@ -248,9 +257,6 @@ while done==False:
         x_coordcfishsmall = x_coordback + 6000 + 100
     Ldrawcfishsmall(screen, x_coordcfishsmall, y_coordcfishsmall)
  
-    #if x_coord == 1024 - 224 and y_coord == 768 - 188:
-    #    drawtreasurebig(screen, 276, 187)
-    
     player_c = [x_coord, y_coord, 224, 188]
     buddy_c = [x_coordbuddy, y_coordbuddy, 224, 188]
     eel_c = [x_coordeel, y_coordeel, 200, 46]
