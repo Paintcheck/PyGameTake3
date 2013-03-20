@@ -14,6 +14,8 @@ Lcfishsmall = pygame.image.load("Lcfishsmall.png")
 
 treasuresmall = pygame.image.load("treasuresmall.png")
 
+treasurebig = pygame.image.load("treasurebig.png")
+
 AcquariumBackground = pygame.image.load("Aquarium.jpg")
 
 ocean = [135, 206, 250] 
@@ -39,7 +41,11 @@ def Ldrawcfishsmall(screen,x,y):
     screen.blit(Lcfishsmall, (x, y))
 
 def drawtreasuresmall(screen,x,y):
-    screen.blit(treasuresmall, (x, y)) 
+    screen.blit(treasuresmall, (x, y))
+    
+def drawtreasurebig(screen,x,y):
+    screen.blit(treasurebig, (x, y))  
+    
 # Setup
 pygame.init()
    
@@ -190,6 +196,10 @@ while done==False:
     if x_coordcfishsmall < -100 + 100:
         x_coordcfishsmall = 1024 + 500 + 100
     Ldrawcfishsmall(screen, x_coordcfishsmall, y_coordcfishsmall)
+ 
+    if x_coord == 1024 - 224 and y_coord == 768 - 188:
+        drawtreasurebig(screen, 200, 200)
+ 
  
     # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
       
