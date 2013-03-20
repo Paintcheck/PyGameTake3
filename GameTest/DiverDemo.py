@@ -6,25 +6,29 @@ Rdiverdude = pygame.image.load("Rscubadiversmall.png")
 Ldiverbuddy = pygame.image.load("Lbuddy.png")
 Rdiverbuddy = pygame.image.load("Rbuddy.png")
 
+Leel = pygame.image.load("Leel.png")
+Reel = pygame.image.load("Reel.png")
+
 AcquariumBackground = pygame.image.load("Aquarium.jpg")
 
 ocean = [135, 206, 250] 
 black = [0, 0, 0]
 # Function to draw our stick figure
 def LdrawDiver(screen,x,y):
-    Ldiverdude = pygame.image.load("Lscubadiversmall.png")
     screen.blit(Ldiverdude, (x, y))
 def RdrawDiver(screen,x,y):
-    Ldiverdude = pygame.image.load("Rscubadiversmall.png")
     screen.blit(Rdiverdude, (x, y))  
     
 def LdrawBuddy(screen,x,y):
-    Ldiverdude = pygame.image.load("Lbuddy.png")
     screen.blit(Ldiverbuddy, (x, y))
 def RdrawBuddy(screen,x,y):
-    Ldiverdude = pygame.image.load("Rbuddy.png")
     screen.blit(Rdiverbuddy, (x, y))  
-       
+
+def Ldraweel(screen,x,y):
+    screen.blit(Leel, (x, y))
+def Rdraweel(screen,x,y):
+    screen.blit(Reel, (x, y))
+      
 # Setup
 pygame.init()
    
@@ -53,6 +57,9 @@ y_coord=0
 
 x_coordbuddy=0
 y_coordbuddy=0
+
+x_coordeel = -250
+y_coordeel = 768 - 100
 
 #Direction to face
 direction = 1
@@ -148,8 +155,12 @@ while done==False:
         RdrawDiver(screen, x_coord, y_coord)
     else:
         LdrawDiver(screen, x_coord, y_coord)
-
-     
+        
+    x_coordeel = x_coordeel + 5
+    if x_coordeel > 1024:
+        x_coordeel = -500
+    Rdraweel(screen, x_coordeel, y_coordeel)
+    
  
     # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
       
