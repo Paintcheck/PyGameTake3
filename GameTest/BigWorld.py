@@ -1,5 +1,7 @@
 import pygame
 #this is a test of the please sync for god's sake
+map = pygame.image.load("TreasureMap.jpg") # 224 x 188
+
 Ldiverdude = pygame.image.load("Lscubadiversmall.png") # 224 x 188
 Rdiverdude = pygame.image.load("Rscubadiversmall.png") # 224 x 188
 
@@ -12,7 +14,6 @@ eel = pygame.image.load("eel.png") # 538 x 125
 Lcfishmedium = pygame.image.load("Lcfishmedium.png") # 100 x 45
 Lcfishsmall = pygame.image.load("Lcfishsmall.png") # 50 x 22
 cfish = pygame.image.load("cfish.png") # 476 x 212
-
 
 treasuresmall = pygame.image.load("treasuresmall.png") # 120 x 100
 
@@ -30,6 +31,9 @@ cfishspeed = 2
 ocean = [135, 206, 250] 
 black = [0, 0, 0]
 # Function to draw our stick figure
+def drawmap(screen,x,y):
+    screen.blit(map, (x, y))
+
 def drawseafloor(screen,x,y):
     screen.blit(seafloor, (x, y))
 
@@ -129,7 +133,7 @@ y_coordback = 0
 #Direction to face
 direction = 1
 buddydirection =1
-
+#page = 0
 
 # -------- Main Program Loop -----------
 while done==False:
@@ -138,7 +142,14 @@ while done==False:
         if event.type == pygame.QUIT: # If user clicked close
             done=True # Flag that we are done so we exit this loop
             # User pressed down on a key
-         
+        
+      #  while page == 0:
+       #     if event.type == pygame.KEYDOWN:
+     #           if event.key == pygame.K_SPACE:
+    #                page = 1;
+            
+        
+        
         if event.type == pygame.KEYDOWN:
             # Figure out if it was an arrow key. If so
             # adjust speed.
