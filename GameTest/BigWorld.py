@@ -3,13 +3,13 @@ import time
 import csv
 import sys
 
-f = open(sys.argv[1], 'rt')
-try:
-    reader = csv.reader(f)
-    for row in reader:
-        print row
-finally:
-    f.close()
+#f = open(sys.argv[1], 'rt')
+#try:
+ #   reader = csv.reader(f)
+  #  for row in reader:
+   #     print row
+#finally:
+ #   f.close()
 #this is a test of the please sync for god's sake
 map = pygame.image.load("TreasureMap.jpg") # 224 x 188
 
