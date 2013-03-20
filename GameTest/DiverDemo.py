@@ -198,8 +198,9 @@ while done==False:
     Ldrawcfishsmall(screen, x_coordcfishsmall, y_coordcfishsmall)
  
     if x_coord == 1024 - 224 and y_coord == 768 - 188:
-        drawtreasurebig(screen, 200, 200)
- 
+        drawtreasurebig(screen, 276, 187)
+        
+    
  
     # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
       
