@@ -2,8 +2,6 @@ import pygame
 import time
 import csv
 
-loadsavetext = '0', '0', '0'
-
 def load(savefile):
     with open(savefile, 'rt') as f:
         reader = csv.reader(f)
@@ -11,24 +9,22 @@ def load(savefile):
         loadsavetext = save[0], save[2], save[4]
         return loadsavetext
 
-newsave = 'Dennis', '5', '200'
-
 def save(newsavearray):
-    writer1 = csv.writer(open('Save1.csv', 'w'), delimiter=' ')
-    writer1.writerow([newsavearray[0]])
-    writer1.writerow([newsavearray[1]])
-    writer1.writerow([newsavearray[2]])
+    writer = csv.writer(open('Save1.csv', 'w'), delimiter=' ')
+    writer.writerow([newsavearray[0]])
+    writer.writerow([newsavearray[1]])
+    writer.writerow([newsavearray[2]])
     
-save(newsave)
-loadsavetext = load('Save1.csv')
+# How to save a new file
+#newsave = 'Dennis', '5', '200'
+#save(newsave)
 
-#with open('Save1.csv', 'wb') as f:
-#    writer1 = csv.writer(f)
-#    writer1.writerow(newsave)
+# How to load a saved file
+loadsavetext = load('Save2.csv')
 
-
-  
-print(loadsavetext)
+Name = str(loadsavetext[0]).replace("[", "").replace("'","").replace("]","")
+Level = map(int, loadsavetext[1])
+Money = map(int, loadsavetext[2])
 
 #finally:
  #   f.close()
@@ -128,7 +124,7 @@ pygame.init()
 size=[1024,768]
 screen=pygame.display.set_mode(size)
   
-pygame.display.set_caption("Diver Test")
+pygame.display.set_caption("Diver Test - " + Name)
   
 #Loop until the user clicks the close button.
 done=False
@@ -468,7 +464,7 @@ while done==False:
     # Limit to 30 frames per second
     clock.tick(30)
       
-# Close the window and quit.
+# Close the window and quit.ti
 # If you forget this line, the program will 'hang'
 # on exit if running from IDLE (indeed it will I found this out the hard way)
 pygame.quit ()
