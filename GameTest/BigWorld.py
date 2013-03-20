@@ -1,5 +1,15 @@
 import pygame
 import time
+import csv
+import sys
+
+f = open(sys.argv[1], 'rt')
+try:
+    reader = csv.reader(f)
+    for row in reader:
+        print row
+finally:
+    f.close()
 #this is a test of the please sync for god's sake
 map = pygame.image.load("TreasureMap.jpg") # 224 x 188
 
@@ -105,7 +115,7 @@ done=False
 clock=pygame.time.Clock()
  
 # Hide the mouse cursor
-pygame.mouse.set_visible(0)
+pygame.mouse.set_visible(1)
  
 # Speed in pixels per frame
 x_speed=0
@@ -143,7 +153,7 @@ page = 0
 while done==False:
 
 
-################# Map Page 0 ###########################
+################# Map Level 0 ###########################
     if page == 0:
         drawmap(screen, 0, 0)
         for event in pygame.event.get(): # User did something
@@ -154,7 +164,7 @@ while done==False:
                     page = 1
 ########################################################
 
-################# Page 1 ###############################
+################# Level 1 ###############################
     elif page == 1:
         for event in pygame.event.get(): # User did something
             if event.type == pygame.QUIT: # If user clicked close
@@ -176,6 +186,8 @@ while done==False:
                     y_speed=speed
                 if event.key == pygame.K_SPACE:
                     spacehit = True
+                if event.key == pygame.K_ESCAPE:
+                    page = 0
                       
             # User let up on a key
             if event.type == pygame.KEYUP:
@@ -190,6 +202,7 @@ while done==False:
                     y_speed=0
                 if event.key == pygame.K_SPACE:
                     spacehit = False
+             
                 
         # ALL EVENT PROCESSING SHOULD GO ABOVE THIS COMMENT
      
@@ -275,7 +288,7 @@ while done==False:
 
 ########################################################
 
-################# Page 2 ###############################
+################# Level 2 ###############################
     elif page == 2:
         # ALL EVENT PROCESSING SHOULD GO BELOW THIS COMMENT
         for event in pygame.event.get(): # User did something
@@ -298,6 +311,8 @@ while done==False:
                     y_speed=speed
                 if event.key == pygame.K_SPACE:
                     spacehit = True
+                if event.key == pygame.K_ESCAPE:
+                    page = 0
                       
             # User let up on a key
             if event.type == pygame.KEYUP:
