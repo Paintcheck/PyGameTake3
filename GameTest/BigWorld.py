@@ -1,13 +1,35 @@
 import pygame
 import time
 import csv
-import sys
 
-#f = open(sys.argv[1], 'rt')
-#try:
- #   reader = csv.reader(f)
-  #  for row in reader:
-   #     print row
+loadsavetext = '0', '0', '0'
+
+def load(savefile):
+    with open(savefile, 'rt') as f:
+        reader = csv.reader(f)
+        save = list(reader)
+        loadsavetext = save[0], save[2], save[4]
+        return loadsavetext
+
+newsave = 'Dennis', '5', '200'
+
+def save(newsavearray):
+    writer1 = csv.writer(open('Save1.csv', 'w'), delimiter=' ')
+    writer1.writerow([newsavearray[0]])
+    writer1.writerow([newsavearray[1]])
+    writer1.writerow([newsavearray[2]])
+    
+save(newsave)
+loadsavetext = load('Save1.csv')
+
+#with open('Save1.csv', 'wb') as f:
+#    writer1 = csv.writer(f)
+#    writer1.writerow(newsave)
+
+
+  
+print(loadsavetext)
+
 #finally:
  #   f.close()
 #this is a test of the please sync for god's sake
