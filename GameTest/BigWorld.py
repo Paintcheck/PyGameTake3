@@ -418,6 +418,16 @@ while done==False:
                 x_coordcfishmedium = x_coordcfishmedium + speed
                 x_coordcfishsmall = x_coordcfishsmall + speed
                 x_coordtreasure = x_coordtreasure + speed
+                
+                x_coordbubbles1 = x_coordbubbles1 + speed
+                x_coordbubbles2 = x_coordbubbles2 + speed
+                x_coordbubbles3 = x_coordbubbles3 + speed
+                x_coordbubbles4 = x_coordbubbles4 + speed
+                
+                x_b_coordbubbles1 = x_b_coordbubbles1 + speed
+                x_b_coordbubbles2 = x_b_coordbubbles2 + speed
+                x_b_coordbubbles3 = x_b_coordbubbles3 + speed
+                x_b_coordbubbles4 = x_b_coordbubbles4 + speed
         if y_coord < 0:
             y_coord = 0
         if x_coord > 1024-224:
@@ -430,6 +440,16 @@ while done==False:
                 x_coordcfishmedium = x_coordcfishmedium - speed
                 x_coordcfishsmall = x_coordcfishsmall - speed
                 x_coordtreasure = x_coordtreasure - speed
+                
+                x_coordbubbles1 = x_coordbubbles1 - speed
+                x_coordbubbles2 = x_coordbubbles2 - speed
+                x_coordbubbles3 = x_coordbubbles3 - speed
+                x_coordbubbles4 = x_coordbubbles4 - speed
+                
+                x_b_coordbubbles1 = x_b_coordbubbles1 - speed
+                x_b_coordbubbles2 = x_b_coordbubbles2 - speed
+                x_b_coordbubbles3 = x_b_coordbubbles3 - speed
+                x_b_coordbubbles4 = x_b_coordbubbles4 - speed
         if y_coord > 768-188:
             y_coord = 768-188
             
@@ -692,6 +712,16 @@ while done==False:
                 x_coordcfishmedium = x_coordcfishmedium + speed
                 x_coordcfishsmall = x_coordcfishsmall + speed
                 x_coordtreasure = x_coordtreasure + speed
+                
+                x_coordbubbles1 = x_coordbubbles1 + speed
+                x_coordbubbles2 = x_coordbubbles2 + speed
+                x_coordbubbles3 = x_coordbubbles3 + speed
+                x_coordbubbles4 = x_coordbubbles4 + speed
+                
+                x_b_coordbubbles1 = x_b_coordbubbles1 + speed
+                x_b_coordbubbles2 = x_b_coordbubbles2 + speed
+                x_b_coordbubbles3 = x_b_coordbubbles3 + speed
+                x_b_coordbubbles4 = x_b_coordbubbles4 + speed
         if y_coord < 0:
             y_coord = 0
         if x_coord > 1024-224:
@@ -704,6 +734,16 @@ while done==False:
                 x_coordcfishmedium = x_coordcfishmedium - speed
                 x_coordcfishsmall = x_coordcfishsmall - speed
                 x_coordtreasure = x_coordtreasure - speed
+                
+                x_coordbubbles1 = x_coordbubbles1 - speed
+                x_coordbubbles2 = x_coordbubbles2 - speed
+                x_coordbubbles3 = x_coordbubbles3 - speed
+                x_coordbubbles4 = x_coordbubbles4 - speed
+                
+                x_b_coordbubbles1 = x_b_coordbubbles1 - speed
+                x_b_coordbubbles2 = x_b_coordbubbles2 - speed
+                x_b_coordbubbles3 = x_b_coordbubbles3 - speed
+                x_b_coordbubbles4 = x_b_coordbubbles4 - speed
         if y_coord > 768-188:
             y_coord = 768-188
             
