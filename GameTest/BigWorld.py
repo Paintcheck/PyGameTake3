@@ -11,16 +11,20 @@ def load(savefile):
 
 def save(newsavearray):
     writer = csv.writer(open('Save1.csv', 'w'), delimiter=' ')
+    writer.writeheader
     writer.writerow([newsavearray[0]])
     writer.writerow([newsavearray[1]])
     writer.writerow([newsavearray[2]])
-    
+    writer.writeheader
 # How to save a new file
 #newsave = 'Dennis', '5', '200'
 #save(newsave)
 
 # How to load a saved file
-loadsavetext = load('Save2.csv')
+loadsavetext = load('Save1.csv')
+
+
+
 
 Name = str(loadsavetext[0]).replace("[", "").replace("'","").replace("]","")
 Level = map(int, loadsavetext[1])
@@ -35,7 +39,7 @@ Ldiverdude = pygame.image.load("Lscubadiversmall.png") # 224 x 188
 Rdiverdude = pygame.image.load("Rscubadiversmall.png") # 224 x 188
 
 Ldiverbuddy = pygame.image.load("Lbuddy.png") # 224 x 188
-Rdiverbuddy = pygame.image.load("Rbuddy.png") # 224 x 188
+Rdiverbuddy = pygame.transform.flip(Ldiverbuddy, True, False)
 
 Reel = pygame.image.load("Reel.png") # 200 x 46
 eel = pygame.image.load("eel.png") # 538 x 125
@@ -244,7 +248,7 @@ while done==False:
                     page = 1
                 if x_mouse > x_outer_banks and x_mouse < x_outer_banks + 50 and y_mouse > y_outer_banks and y_mouse < y_outer_banks + 50:
                     page = 2
-########################################################
+#########################################################
 
 ################# Level 1 ###############################
     elif page == 1:
