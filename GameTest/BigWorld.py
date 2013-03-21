@@ -50,9 +50,15 @@ rocks = pygame.image.load("rocks.gif") # 200 x 768
 
 treasurebig = pygame.image.load("treasurebig.png") # 472 x 395
 
-seafloor = pygame.image.load("seafloor2.jpg") # 6000 x 768
+seafloor = pygame.image.load("seafloor.jpg") # 6000 x 768
+
+sandcastle = pygame.image.load("sandcastle.png") # 6000 x 768
 
 bubbles = pygame.image.load("bubblessmall.gif") # 25 x 51
+
+island = pygame.image.load("island.png") # 50 x 50
+
+menu = pygame.image.load("MenuButton.png") # 100 x 50
 
 AquariumBackground = pygame.image.load("Aquarium.jpg") # 1024 x 768
 
@@ -71,7 +77,10 @@ def drawmap(screen,x,y):
 
 def drawseafloor(screen,x,y):
     screen.blit(seafloor, (x, y))
-
+    
+def drawsandcastle(screen,x,y):
+    screen.blit(sandcastle, (x, y))
+    
 def LdrawDiver(screen,x,y):
     screen.blit(Ldiverdude, (x, y))
 def RdrawDiver(screen,x,y):
@@ -109,6 +118,12 @@ def drawrocks(screen,x,y):
 def drawbubbles(screen,x,y):
     screen.blit(bubbles, (x, y))
     
+def drawisland(screen,x,y):
+    screen.blit(island, (x, y))   
+    
+def drawmenu(screen,x,y):
+    screen.blit(menu, (x, y))   
+     
 def collision(object1, object2):
     x1 = object1[0]
     y1 = object1[1]
@@ -140,7 +155,10 @@ clock=pygame.time.Clock()
  
 # Hide the mouse cursor
 pygame.mouse.set_visible(1)
- 
+
+
+x_menu = 0
+y_menu = 0
 # Speed in pixels per frame
 x_speed = 0
 y_speed = 0
@@ -209,21 +227,38 @@ while done==False:
 ################# Map Level 0 ###########################
     if page == 0:
         drawmap(screen, 0, 0)
+        x_outer_banks = 220
+        y_outer_banks = 280
+        drawisland(screen, x_outer_banks, y_outer_banks)
+        x_singapore = 750
+        y_singapore = 385
+        drawisland(screen, x_singapore, y_singapore)
+        mouse_pos = pygame.mouse.get_pos()
+        x_mouse = mouse_pos[0]
+        y_mouse = mouse_pos[1]
         for event in pygame.event.get(): # User did something
             if event.type == pygame.QUIT: # If user clicked close
                 done=True # Flag that we are done so we exit this loop
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
+            if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
+                if x_mouse > x_singapore and x_mouse < x_singapore + 50 and y_mouse > y_singapore and y_mouse < y_singapore + 50:
+                    page = 1
+                if x_mouse > x_outer_banks and x_mouse < x_outer_banks + 50 and y_mouse > y_outer_banks and y_mouse < y_outer_banks + 50:
                     page = 2
 ########################################################
 
 ################# Level 1 ###############################
     elif page == 1:
+        mouse_pos = pygame.mouse.get_pos()
+        x_mouse = mouse_pos[0]
+        y_mouse = mouse_pos[1]
+        # ALL EVENT PROCESSING SHOULD GO BELOW THIS COMMENT
         for event in pygame.event.get(): # User did something
             if event.type == pygame.QUIT: # If user clicked close
                 done=True # Flag that we are done so we exit this loop
                 # User pressed down on a key
-             
+            if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
+                if x_mouse > x_menu and x_mouse < x_menu + 100 and y_mouse > y_menu and y_mouse < y_menu + 50:
+                    page = 0   
             if event.type == pygame.KEYDOWN:
                 # Figure out if it was an arrow key. If so
                 # adjust speed.
@@ -255,22 +290,146 @@ while done==False:
                     y_speed=0
                 if event.key == pygame.K_SPACE:
                     spacehit = False
-             
-                
         # ALL EVENT PROCESSING SHOULD GO ABOVE THIS COMMENT
      
         # ALL GAME LOGIC SHOULD GO BELOW THIS COMMENT
      
         # Move the object according to the speed vector.
-        x_coord=x_coord+x_speed
-        y_coord=y_coord+y_speed
+        
+        x_coord = x_coord + x_speed
+        y_coord = y_coord + y_speed
+        
+        xstep = 20
+        ystep = 20
+        #bubbles
+        if bubblecycles1 == 0:
+            if direction == 0:
+                x_coordbubbles1 = x_coord + 55
+                y_coordbubbles1 = y_coord + 60 - 51
+            else:
+                x_coordbubbles1 = x_coord - 55 + 224
+                y_coordbubbles1 = y_coord + 60 - 51
+        bubblecycles1 = bubblecycles1 + 1
+        if bubblecycles1 > 360:
+            bubblecycles1 = 0
+        y_coordbubbles1 = y_coordbubbles1 - bubblespeed
+
+        if bubblecycles2 == 90:
+            if direction == 0:
+                x_coordbubbles2 = x_coord + 55
+                y_coordbubbles2 = y_coord + 60 - 51
+            else:
+                x_coordbubbles2 = x_coord - 55 + 224
+                y_coordbubbles2 = y_coord + 60 - 51
+        bubblecycles2 = bubblecycles2 + 1
+        if bubblecycles2 > 455:
+            bubblecycles2 = 90
+        y_coordbubbles2 = y_coordbubbles2 - bubblespeed
+
+        if bubblecycles3 == 180:
+            if direction == 0:
+                x_coordbubbles3 = x_coord + 55
+                y_coordbubbles3 = y_coord + 60 - 51
+            else:
+                x_coordbubbles3 = x_coord - 55 + 224
+                y_coordbubbles3 = y_coord + 60 - 51
+        bubblecycles3 = bubblecycles3 + 1
+        if bubblecycles3 > 540:
+            bubblecycles3 = 180
+        y_coordbubbles3 = y_coordbubbles3 - bubblespeed        
+
+        if bubblecycles4 == 270:
+            if direction == 0:
+                x_coordbubbles4 = x_coord + 55
+                y_coordbubbles4 = y_coord + 60 - 51
+            else:
+                x_coordbubbles4 = x_coord - 55 + 224
+                y_coordbubbles4 = y_coord + 60 - 51
+        bubblecycles4 = bubblecycles4 + 1
+        if bubblecycles4 > 630:
+            bubblecycles4 = 270
+        y_coordbubbles4 = y_coordbubbles4 - bubblespeed         
+
+                
+        
+        
+        offstep = 40
+        
+        if b_bubblecycles1 == 0 + offstep:
+            if direction == 0:
+                x_b_coordbubbles1 = x_coordbuddy + 55 
+                y_b_coordbubbles1 = y_coordbuddy + 60 - 51
+            else:
+                x_b_coordbubbles1 = x_coordbuddy - 55  + 224
+                y_b_coordbubbles1 = y_coordbuddy + 60 - 51
+        b_bubblecycles1 = b_bubblecycles1 + 1
+        if b_bubblecycles1 > 360 + offstep:
+            b_bubblecycles1 = 0 + offstep
+        y_b_coordbubbles1 = y_b_coordbubbles1 - bubblespeed
+
+        if b_bubblecycles2 == 90 + offstep:
+            if direction == 0:
+                x_b_coordbubbles2 = x_coordbuddy + 55 
+                y_b_coordbubbles2 = y_coordbuddy + 60 - 51
+            else:
+                x_b_coordbubbles2 = x_coordbuddy - 55  + 224
+                y_b_coordbubbles2 = y_coordbuddy + 60 - 51
+        b_bubblecycles2 = b_bubblecycles2 + 1
+        if b_bubblecycles2 > 450 + offstep:
+            b_bubblecycles2 = 90 + offstep
+        y_b_coordbubbles2 = y_b_coordbubbles2 - bubblespeed
+
+        if b_bubblecycles3 == 180 + offstep:
+            if direction == 0:
+                x_b_coordbubbles3 = x_coordbuddy + 55 
+                y_b_coordbubbles3 = y_coordbuddy + 60 - 51
+            else:
+                x_b_coordbubbles3 = x_coordbuddy - 55  + 224
+                y_b_coordbubbles3 = y_coordbuddy + 60 - 51
+        b_bubblecycles3 = b_bubblecycles3 + 1
+        if b_bubblecycles3 > 540 + offstep:
+            b_bubblecycles3 = 180 + offstep
+        y_b_coordbubbles3 = y_b_coordbubbles3 - bubblespeed        
+
+        if b_bubblecycles4 == 270 + offstep:
+            if direction == 0:
+                x_b_coordbubbles4 = x_coordbuddy + 55 
+                y_b_coordbubbles4 = y_coordbuddy + 60 - 51
+            else:
+                x_b_coordbubbles4 = x_coordbuddy - 55  + 224
+                y_b_coordbubbles4 = y_coordbuddy + 60 - 51
+        b_bubblecycles4 = b_bubblecycles4 + 1
+        if b_bubblecycles4 > 630 + offstep:
+            b_bubblecycles4 = 270 + offstep
+        y_b_coordbubbles4 = y_b_coordbubbles4 - bubblespeed     
+        
+        
+        
+        
      
+                
         if x_coord < 0:
             x_coord = 0
+            x_coordback = x_coordback + speed
+            if x_coordback > 0:
+                x_coordback = 0
+            else:
+                x_coordeel = x_coordeel + speed
+                x_coordcfishmedium = x_coordcfishmedium + speed
+                x_coordcfishsmall = x_coordcfishsmall + speed
+                x_coordtreasure = x_coordtreasure + speed
         if y_coord < 0:
             y_coord = 0
         if x_coord > 1024-224:
             x_coord = 1024-224
+            x_coordback = x_coordback - speed
+            if x_coordback < -6000 + 1024:
+                x_coordback = -6000 + 1024
+            else:
+                x_coordeel = x_coordeel - speed
+                x_coordcfishmedium = x_coordcfishmedium - speed
+                x_coordcfishsmall = x_coordcfishsmall - speed
+                x_coordtreasure = x_coordtreasure - speed
         if y_coord > 768-188:
             y_coord = 768-188
             
@@ -302,13 +461,15 @@ while done==False:
         # First, clear the screen to white. Don't put other drawing commands
         # above this, or they will be erased with this command.
         screen.fill(ocean)
-        screen.blit(AquariumBackground, (0,0))
+        #screen.blit(SeafloorBackground, (0,0))
         
-        
-        drawtreasuresmall(screen, 1024 - 120, 768 - 100)
+        drawsandcastle(screen, x_coordback, y_coordback)
+        drawrocks(screen, x_coordback - 100, 0)
+        drawrocks(screen, x_coordback + 100 + 6000 - 200, 0)
+        drawtreasuresmall(screen, x_coordtreasure, y_coordtreasure)
         
         if buddydirection == 1:
-                RdrawBuddy(screen, x_coordbuddy, y_coordbuddy)
+            RdrawBuddy(screen, x_coordbuddy, y_coordbuddy)
         else:
             LdrawBuddy(screen, x_coordbuddy, y_coordbuddy)
             
@@ -317,38 +478,61 @@ while done==False:
         else:
             LdrawDiver(screen, x_coord, y_coord)
             
-        x_coordeel = x_coordeel + 5
-        if x_coordeel > 1024:
-            x_coordeel = -500
+        x_coordeel = x_coordeel + eelspeed
+        if x_coordeel > x_coordback + 6000:
+            x_coordeel = x_coordback - 200
         Rdraweel(screen, x_coordeel, y_coordeel)
         
-        x_coordcfishmedium = x_coordcfishmedium - 2
-        if x_coordcfishmedium < -100:
-            x_coordcfishmedium = 1024 + 500
+        x_coordcfishmedium = x_coordcfishmedium - cfishspeed
+        if x_coordcfishmedium < x_coordback - 100 - 50:
+            x_coordcfishmedium = x_coordback + 6000
         Ldrawcfishmedium(screen, x_coordcfishmedium, y_coordcfishmedium)
         
-        x_coordcfishsmall = x_coordcfishsmall - 2
-        if x_coordcfishsmall < -100 + 100:
-            x_coordcfishsmall = 1024 + 500 + 100
+        x_coordcfishsmall = x_coordcfishsmall - cfishspeed
+        if x_coordcfishsmall < x_coordback - 100 - 50 + 100:
+            x_coordcfishsmall = x_coordback + 6000 + 100
         Ldrawcfishsmall(screen, x_coordcfishsmall, y_coordcfishsmall)
+        
+        drawbubbles(screen, x_coordbubbles1, y_coordbubbles1)
+        drawbubbles(screen, x_coordbubbles2, y_coordbubbles2)
+        drawbubbles(screen, x_coordbubbles3, y_coordbubbles3)
+        drawbubbles(screen, x_coordbubbles4, y_coordbubbles4)
      
-        if x_coord == 1024 - 224 and y_coord == 768 - 188:
+        drawbubbles(screen, x_b_coordbubbles1, y_b_coordbubbles1)
+        drawbubbles(screen, x_b_coordbubbles2, y_b_coordbubbles2)
+        drawbubbles(screen, x_b_coordbubbles3, y_b_coordbubbles3)
+        drawbubbles(screen, x_b_coordbubbles4, y_b_coordbubbles4)
+        
+        player_c = [x_coord, y_coord, 224, 188]
+        buddy_c = [x_coordbuddy, y_coordbuddy, 224, 188]
+        eel_c = [x_coordeel, y_coordeel, 200, 46]
+        treasure_c = [x_coordtreasure, y_coordtreasure, 120, 100]
+        cfishmedium_c = [x_coordcfishmedium, y_coordcfishmedium, 100, 45]
+        
+        if collision(player_c, treasure_c):
             drawtreasurebig(screen, 276, 187)
-            if spacehit == True:
-                page = 2
-
-
-
+        if collision(player_c, eel_c):
+            draweel(screen, 243, 322)
+        if collision(player_c, cfishmedium_c):
+            drawcfish(screen, 274, 278)
+        
+        drawmenu(screen, x_menu, y_menu)
+       
 ########################################################
 
 ################# Level 2 ###############################
     elif page == 2:
+        mouse_pos = pygame.mouse.get_pos()
+        x_mouse = mouse_pos[0]
+        y_mouse = mouse_pos[1]
         # ALL EVENT PROCESSING SHOULD GO BELOW THIS COMMENT
         for event in pygame.event.get(): # User did something
             if event.type == pygame.QUIT: # If user clicked close
                 done=True # Flag that we are done so we exit this loop
                 # User pressed down on a key
-                
+            if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
+                if x_mouse > x_menu and x_mouse < x_menu + 100 and y_mouse > y_menu and y_mouse < y_menu + 50:
+                    page = 0
             if event.type == pygame.KEYDOWN:
                 # Figure out if it was an arrow key. If so
                 # adjust speed.
@@ -593,8 +777,8 @@ while done==False:
         drawbubbles(screen, x_b_coordbubbles3, y_b_coordbubbles3)
         drawbubbles(screen, x_b_coordbubbles4, y_b_coordbubbles4)
         
-        player_c = [x_coord, y_coord, 224, 188]
-        buddy_c = [x_coordbuddy, y_coordbuddy, 224, 188]
+        player_c = [x_coord, y_coord, 224, 188] # full box
+        buddy_c = [x_coordbuddy, y_coordbuddy, 224, 188] # full box
         eel_c = [x_coordeel, y_coordeel, 200, 46]
         treasure_c = [x_coordtreasure, y_coordtreasure, 120, 100]
         cfishmedium_c = [x_coordcfishmedium, y_coordcfishmedium, 100, 45]
@@ -605,11 +789,13 @@ while done==False:
             draweel(screen, 243, 322)
         if collision(player_c, cfishmedium_c):
             drawcfish(screen, 274, 278)
+            
+        
+        drawmenu(screen, x_menu, y_menu)
+            
 ########################################################
      
-       
-        
-        
+ 
         
         # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
       
