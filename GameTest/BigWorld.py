@@ -66,6 +66,8 @@ menu = pygame.image.load("MenuButton.png") # 100 x 50
 
 AquariumBackground = pygame.image.load("Aquarium.jpg") # 1024 x 768
 
+airgauge = pygame.image.load("AirGauge.png")
+
 bubblespeed = 2
 speed = 10
 eelspeed = 5
@@ -142,6 +144,9 @@ def collision(object1, object2):
     else:
         return False
     
+def drawgauge(screen, x, y):
+    screen.blit(airgauge, (x, y))
+    
 # Setup
 pygame.init()
    
@@ -207,6 +212,9 @@ treasure_c = [x_coordtreasure, y_coordtreasure, 120, 100]
 
 x_coordback = 0 - 500
 y_coordback = 0
+
+x_coordgauge = screen.get_width() - airgauge.get_width()
+y_coordgauge = 0
 
 #Direction to face
 bubblecycles1 = 0
@@ -491,7 +499,7 @@ while done==False:
         drawrocks(screen, x_coordback - 100, 0)
         drawrocks(screen, x_coordback + 100 + 6000 - 200, 0)
         drawtreasuresmall(screen, x_coordtreasure, y_coordtreasure)
-        
+        drawgauge(screen, x_coordgauge, y_coordgauge)
         if buddydirection == 1:
             RdrawBuddy(screen, x_coordbuddy, y_coordbuddy)
         else:
