@@ -1,6 +1,10 @@
 import pygame
+import sys
 import time
 import csv
+# Setup
+pygame.init() #Moved this up here because it was messing with stuff. No reason for it to come after all these anyway
+pygame.time.set_timer(pygame.USEREVENT+1, 5000)
 
 def load(savefile):
     with open(savefile, 'rt') as f:
@@ -66,13 +70,18 @@ menu = pygame.image.load("MenuButton.png") # 100 x 50
 
 AquariumBackground = pygame.image.load("Aquarium.jpg") # 1024 x 768
 
-airgauge = pygame.image.load("AirGauge.png")
-
 bubblespeed = 2
 speed = 10
 eelspeed = 5
 cfishspeed = 2
 
+#############Air Vars go Here###############
+airgauge = pygame.image.load("AirGauge.png")
+
+air_consumption = 1 
+total_air = 100
+font = pygame.font.Font(None, 30) #Debugging air consumption cod
+##############################################
 spacehit = False
 
 ocean = [135, 206, 250] 
@@ -146,10 +155,9 @@ def collision(object1, object2):
     
 def drawgauge(screen, x, y):
     screen.blit(airgauge, (x, y))
+
+
     
-# Setup
-pygame.init()
-   
 # Set the width and height of the screen [width,height]
 size=[1024,768]
 screen=pygame.display.set_mode(size)
@@ -234,6 +242,8 @@ page = 0
 
 # -------- Main Program Loop -----------
 while done==False:
+    # Limit to 30 frames per second
+    clock.tick(30)
 
 
 ################# Map Level 0 ###########################
@@ -265,6 +275,9 @@ while done==False:
         y_mouse = mouse_pos[1]
         # ALL EVENT PROCESSING SHOULD GO BELOW THIS COMMENT
         for event in pygame.event.get(): # User did something
+            if event.type == pygame.USEREVENT+1:
+                total_air-=air_consumption
+                print("Consume Air Called")
             if event.type == pygame.QUIT: # If user clicked close
                 done=True # Flag that we are done so we exit this loop
                 # User pressed down on a key
@@ -272,18 +285,23 @@ while done==False:
                 if x_mouse > x_menu and x_mouse < x_menu + 100 and y_mouse > y_menu and y_mouse < y_menu + 50:
                     page = 0   
             if event.type == pygame.KEYDOWN:
+                
                 # Figure out if it was an arrow key. If so
                 # adjust speed.
                 if event.key == pygame.K_a:
                     x_speed=-speed
                     direction=0
+                    air_consumption = 2 #More air used while swimming
                 if event.key == pygame.K_d:
                     x_speed=speed
                     direction=1
+                    air_consumption = 2 #More air used while swimming
                 if event.key == pygame.K_w:
                     y_speed=-speed
+                    air_consumption = 2 #More air used while swimming
                 if event.key == pygame.K_s:
                     y_speed=speed
+                    air_consumption = 2 #More air used while swimming
                 if event.key == pygame.K_SPACE:
                     spacehit = True
                 if event.key == pygame.K_ESCAPE:
@@ -291,6 +309,7 @@ while done==False:
                       
             # User let up on a key
             if event.type == pygame.KEYUP:
+                air_consumption = 1
                 # If it is an arrow key, reset vector back to zero
                 if event.key == pygame.K_a:
                     x_speed=0
@@ -494,12 +513,16 @@ while done==False:
         # above this, or they will be erased with this command.
         screen.fill(ocean)
         #screen.blit(SeafloorBackground, (0,0))
-        
         drawsandcastle(screen, x_coordback, y_coordback)
         drawrocks(screen, x_coordback - 100, 0)
         drawrocks(screen, x_coordback + 100 + 6000 - 200, 0)
         drawtreasuresmall(screen, x_coordtreasure, y_coordtreasure)
-        drawgauge(screen, x_coordgauge, y_coordgauge)
+        ####
+        drawgauge(screen, x_coordgauge, y_coordgauge) #This way the air gauge is always in the background  
+        ta = "Total air:" + str(total_air)
+        airtext = font.render(ta, 1, black)
+        screen.blit(airtext, (x_coordgauge, y_coordgauge))
+        ##AirGauge##
         if buddydirection == 1:
             RdrawBuddy(screen, x_coordbuddy, y_coordbuddy)
         else:
@@ -788,11 +811,11 @@ while done==False:
         # above this, or they will be erased with this command.
         screen.fill(ocean)
         #screen.blit(SeafloorBackground, (0,0))
-        
         drawseafloor(screen, x_coordback, y_coordback)
         drawrocks(screen, x_coordback - 100, 0)
         drawrocks(screen, x_coordback + 100 + 6000 - 200, 0)
         drawtreasuresmall(screen, x_coordtreasure, y_coordtreasure)
+        drawgauge(screen, x_coordgauge, y_coordgauge) #This way the air gauge is always in the background
         
         if buddydirection == 1:
             RdrawBuddy(screen, x_coordbuddy, y_coordbuddy)
@@ -853,9 +876,6 @@ while done==False:
       
     # Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
-  
-    # Limit to 30 frames per second
-    clock.tick(30)
       
 # Close the window and quit.ti
 # If you forget this line, the program will 'hang'
