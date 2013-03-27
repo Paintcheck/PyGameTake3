@@ -277,7 +277,7 @@ while done==False:
         for event in pygame.event.get(): # User did something
             if event.type == pygame.USEREVENT+1:
                 total_air-=air_consumption
-                print("Consume Air Called")
+                #print("Consume Air Called")
             if event.type == pygame.QUIT: # If user clicked close
                 done=True # Flag that we are done so we exit this loop
                 # User pressed down on a key
@@ -580,27 +580,36 @@ while done==False:
         mouse_pos = pygame.mouse.get_pos()
         x_mouse = mouse_pos[0]
         y_mouse = mouse_pos[1]
-        # ALL EVENT PROCESSING SHOULD GO BELOW THIS COMMENT
+      
+       #All event processing goes below this comment
         for event in pygame.event.get(): # User did something
+            if event.type == pygame.USEREVENT+1:
+                total_air-=air_consumption
+                #print("Consume Air Called")
             if event.type == pygame.QUIT: # If user clicked close
                 done=True # Flag that we are done so we exit this loop
                 # User pressed down on a key
             if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
                 if x_mouse > x_menu and x_mouse < x_menu + 100 and y_mouse > y_menu and y_mouse < y_menu + 50:
-                    page = 0
+                    page = 0   
             if event.type == pygame.KEYDOWN:
+                
                 # Figure out if it was an arrow key. If so
                 # adjust speed.
                 if event.key == pygame.K_a:
                     x_speed=-speed
                     direction=0
+                    air_consumption = 2 #More air used while swimming
                 if event.key == pygame.K_d:
                     x_speed=speed
                     direction=1
+                    air_consumption = 2 #More air used while swimming
                 if event.key == pygame.K_w:
                     y_speed=-speed
+                    air_consumption = 2 #More air used while swimming
                 if event.key == pygame.K_s:
                     y_speed=speed
+                    air_consumption = 2 #More air used while swimming
                 if event.key == pygame.K_SPACE:
                     spacehit = True
                 if event.key == pygame.K_ESCAPE:
@@ -608,6 +617,7 @@ while done==False:
                       
             # User let up on a key
             if event.type == pygame.KEYUP:
+                air_consumption = 1
                 # If it is an arrow key, reset vector back to zero
                 if event.key == pygame.K_a:
                     x_speed=0
@@ -815,7 +825,12 @@ while done==False:
         drawrocks(screen, x_coordback - 100, 0)
         drawrocks(screen, x_coordback + 100 + 6000 - 200, 0)
         drawtreasuresmall(screen, x_coordtreasure, y_coordtreasure)
-        drawgauge(screen, x_coordgauge, y_coordgauge) #This way the air gauge is always in the background
+        ###AIR GAUGE###
+        drawgauge(screen, x_coordgauge, y_coordgauge) #This way the air gauge is always in the background  
+        ta = "Total air:" + str(total_air)
+        airtext = font.render(ta, 1, black)
+        screen.blit(airtext, (x_coordgauge, y_coordgauge))
+        ##AirGauge##
         
         if buddydirection == 1:
             RdrawBuddy(screen, x_coordbuddy, y_coordbuddy)
